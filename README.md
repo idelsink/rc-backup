@@ -45,7 +45,7 @@ and then it will restore all the backups to their relative places.
 git clone https://github.com/idelsink/rc-backup.git         # download the repository
 sudo apt-get install ruby                                   # install ruby
 sudo dnf install ruby                                       # or for rpm based machines
-gem install iniparse optparse colorize fileutils            # install ruby packages `iniparse`, `optparse`, `colorize` and `fileutils`.
+gem install iniparse OptionParser colorize fileutils        # install ruby packages `iniparse`, `OptionParser`, `colorize` and `fileutils`.
 ```
 
 Setup a backup location with the configuration file.  
