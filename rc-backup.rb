@@ -78,6 +78,7 @@ class RCbackup
     def restore()
         process_backup(false)
     end
+
     private
     @_home
     @_backup_dir
@@ -200,11 +201,29 @@ class RCbackup
 end
 
 # --- process arguments --------------------------------------------------
+ARGV << '-h' if ARGV.empty? # no arguments? show help
 options = {}
 OptionParser.new do |opts|
     opts.version = "1.0.0"
     opts.program_name="rc-backup"
     opts.banner = "Usage: rc-backup.rb [options] config.ini"
+    opts.on("-g", "--generate-config", "generate config file") do |g|
+        config=[
+            "; rc-backup configuration file.",
+            "; github.com/idelsink/rc-backup",
+            "",
+            "[GLOBAL]",
+            "backup-directory=\"\" ; if none set, directory of this file is used",
+            "",
+            "; for sorting, different sections can be used",
+            ";[example-set]",
+            ";disable=false               ; set this to true and this section will be disabled/ignored",
+            ";file=\"~/.bashrc\"            ; example of a use case",
+            ";file=\"/home/user/.bashrc\"   ; this yields the same result as above"
+        ].join("\n") + "\n"
+        puts config
+        exit 0
+    end
     opts.on("-h", "--help", "print help") do |h|
         puts opts
         exit 0
