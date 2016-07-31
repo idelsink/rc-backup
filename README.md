@@ -48,7 +48,7 @@ sudo dnf install ruby                                       # or for rpm based m
 gem install iniparse optparse colorize fileutils            # install ruby packages `iniparse`, `optparse`, `colorize` and `fileutils`.
 ```
 
-Setup a backup location with the configuration file.
+Setup a backup location with the configuration file.  
 An example file can be generated with the following command:
 
 ```sh
