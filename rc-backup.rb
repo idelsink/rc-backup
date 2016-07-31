@@ -225,16 +225,20 @@ OptionParser.new do |opts|
         exit 0
     end
     opts.on("-h", "--help", "print help") do |h|
-        puts opts
+        opts.summarize([], opts.summary_width, opts.summary_width ) { |helpline|
+            puts helpline
+        }
         exit 0
     end
-    opts.on("-r", "--restore", "restore backups") do |r|
+    opts.on("-r", "--restore", "restore backups. Before the files are restored,\
+    \n                                     the original files will be backed up to the \
+    \n                                     folder displayed on screen.") do |r|
         options[:restore] = r
     end
     opts.on("-v", "--[no-]verbose", "run verbosely") do |v|
         options[:verbose] = v
     end
-    opts.on_tail("--version", "show version") do
+    opts.on("--version", "show version") do
         puts "#{opts.program_name} v#{opts.version}"
         exit 0
     end
