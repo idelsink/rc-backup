@@ -133,8 +133,8 @@ class RCbackup
                             if file =~ /^#{@_home}/
                                 # file resides in the home dir
                                 # path format:
-                                # backupdir/_USER_/sectionname/pathtofile minus userhomedir
-                                backup_file = "#{@_backup_dir}/_USER_/#{section}/#{file.sub("#{@_home}/", "")}"
+                                # backupdir/FILE/_USER_/sectionname/pathtofile minus userhomedir
+                                backup_file = "#{@_backup_dir}/FILE/_USER_/#{section}/#{file.sub("#{@_home}/", "")}"
                                 # original backup location:
                                 # scriptdir/.oldfiles/sectionname/pathtofile
                                 original_backup = "#{File.expand_path(File.dirname(__FILE__))}/.oldfiles/#{section}#{file}"
@@ -171,8 +171,8 @@ class RCbackup
                                 # file does not resides in the home dir
                                 # (root or something)
                                 # path format:
-                                # backupdir/sectionname/pathtofile
-                                backup_file = "#{@_backup_dir}/#{section}#{file}"
+                                # backupdir/FILE/sectionname/pathtofile
+                                backup_file = "#{@_backup_dir}/FILE/#{section}#{file}"
                                 # original backup location:
                                 # scriptdir/.oldfiles/sectionname/pathtofile
                                 original_backup = "#{File.expand_path(File.dirname(__FILE__))}/.oldfiles/#{section}#{file}"
