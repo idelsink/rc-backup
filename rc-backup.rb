@@ -139,27 +139,32 @@ class RCbackup
                                 # scriptdir/.oldfiles/sectionname/pathtofile
                                 original_backup = "#{File.expand_path(File.dirname(__FILE__))}/.oldfiles/#{section}#{file}"
                                 if backup # backup
-                                    if file_exists(file)
-                                        puts "backup "+"'#{file}'".light_cyan+" -> "+"#{backup_file}".blue
-                                        # copy file to backup (overwrite? yes)
-                                        copy_with_path(file, backup_file, true)
-                                    else
-                                        puts "file '#{file} does not exists'".red
-                                    end
-                                elsif ! backup # restore
-                                    if file_exists(backup_file)
-                                        # check if file in original exists
-                                        if ! file_exists(original_backup)
-                                            if file_exists(file)
-                                                puts "making backup of original file -> "+"#{original_backup}".green
-                                                copy_with_path(file, original_backup)
-                                            end
+                                    if ! hash.fetch("backup", "") == false
+                                        if file_exists(file)
+                                            puts "backup "+"'#{file}'".light_cyan+" -> "+"#{backup_file}".blue
+                                            # copy file to backup (overwrite? yes)
+                                            copy_with_path(file, backup_file, true)
+                                        else
+                                            puts "file '#{file} does not exists'".red
                                         end
-                                        # copy backup to file (overwrite? yes?)
-                                        puts "restore "+"'#{file}'".blue+" <- "+"'#{backup_file}'".light_cyan
-                                        copy_with_path(backup_file, file, true)
-                                    else
-                                        puts "backup '#{backup_file} does not exists'".red
+                                    end
+
+                                elsif ! backup # restore
+                                    if ! hash.fetch("restore", "") == false
+                                        if file_exists(backup_file)
+                                            # check if file in original exists
+                                            if ! file_exists(original_backup)
+                                                if file_exists(file)
+                                                    puts "making backup of original file -> "+"#{original_backup}".green
+                                                    copy_with_path(file, original_backup)
+                                                end
+                                            end
+                                            # copy backup to file (overwrite? yes?)
+                                            puts "restore "+"'#{file}'".blue+" <- "+"'#{backup_file}'".light_cyan
+                                            copy_with_path(backup_file, file, true)
+                                        else
+                                            puts "backup '#{backup_file} does not exists'".red
+                                        end
                                     end
                                 end
                             else
@@ -222,6 +227,8 @@ OptionParser.new do |opts|
             "; for sorting, different sections can be used",
             ";[example-set]",
             ";disable=false               ; set this to true and this section will be disabled/ignored",
+            ";backup=true                 ; set this to false to disable backup of this section",
+            ";restore=true                ; set this to false to disable restore of this section",
             ";file=\"~/.bashrc\"            ; example of a use case",
             ";file=\"/home/user/.bashrc\"   ; this yields the same result as above"
         ].join("\n") + "\n"
