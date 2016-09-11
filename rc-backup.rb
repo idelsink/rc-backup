@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 ##########################################################################
 # script name: rc-backup
-# script version: 1.0.0
+# script version: 1.1.0
 # script date: 30 Juli 2016
 # website: https://github.com/idelsink/rc-backup
 ##########################################################################
